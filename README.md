@@ -1,54 +1,48 @@
 # 🪙 Kerala Daily Gold Rate Bot
 
-An automated Python scraper that fetches daily gold rates (22K and 18K) from the **All Kerala Gold & Silver Merchants Association (AKGSMA)** and sends them directly to a Telegram chat.
+An automated Python scraper that fetches daily gold rates (22K and 18K) from the **All Kerala Gold & Silver Merchants Association (AKGSMA)** and broadcasts them directly to Telegram.
+
+---
 
 ## 🚀 Features
-* **Live Scraping:** Fetches the latest rates directly from [AKGSMA](https://akgsma.com/).
-* **Multiple Categories:** Tracks 1 gram and 8 gram (1 Pavan) prices for both **22K** and **18K** gold.
-* **Fully Automated:** Runs every morning at 9:00 AM IST using GitHub Actions (Cloud-based).
-* **Zero Cost:** Uses free-tier GitHub Actions and Telegram Bot API.
+- **Live Scraping:** Fetches official daily rates directly from [AKGSMA](https://akgsma.com/).
+- **Multi-Karat & Unit Tracking:** Calculates 1 gram and 8 gram (1 Pavan) prices for **22K** gold.
+- **Dynamic Date Ingestion:** Formats daily alerts automatically with current date tags (`DD/MM/YYYY`).
+- **Multi-User Broadcast:** Broadcasts updates to single or multiple chat IDs in parallel.
+- **100% Serverless & Free:** Automated using GitHub Actions and the Telegram Bot API.
+
+---
 
 ## 🛠️ Tech Stack
-* **Language:** Python 3.10
-* **Libraries:** `BeautifulSoup4` (Scraping), `Requests` (API & Web)
-* **Automation:** GitHub Actions (YAML)
-* **Notifier:** Telegram Bot API
+- **Language:** Python 3.10
+- **Scraping & Requests:** `BeautifulSoup4`, `requests`
+- **CI/CD & Scheduled Cron:** GitHub Actions (YAML)
+- **Notification API:** Telegram Bot API
 
-## 📋 Setup & Installation
-
-### 1. Telegram Setup
-1. Create a bot via [@BotFather](https://t.me/botfather) and save the **API Token**.
-2. Get your Chat ID via [@userinfobot](https://t.me/userinfobot).
-
-### 2. GitHub Secrets
-To protect your tokens, add the following to **Settings > Secrets and variables > Actions**:
-* `TELEGRAM_TOKEN`: Your bot's API token.
-* `TELEGRAM_CHAT_ID`: Your personal Telegram ID.
-
-### 3. File Structure
-* `gold_scraper.py`: The Python logic for scraping and sending messages.
-* `requirements.txt`: Lists the Python dependencies.
-* `.github/workflows/daily_run.yml`: The automation schedule.
+---
 
 ## 🤖 How It Works
-The bot uses `BeautifulSoup` to parse the HTML table on the AKGSMA website. It specifically targets:
-* **22K916 (1gm)** - Used for calculating the 1g and 8g standard rates.
-* **18K750 (1gm)** - Used for calculating the 1g and 8g low-karat rates.
+1. **Trigger:** A scheduled GitHub Actions cron job wakes up every morning at **09:00 AM IST** (`30 3 * * *` UTC).
+2. **Extraction:** The script parses HTML elements on the AKGSMA site, targeting `22K916 (1gm)`.
+3. **Parsing & Formatting:** Cleans non-numeric noise, computes the 8-gram (Pavan) values, formats values with Indian numeric separators (`₹XX,XXX`), and attaches the current date.
+4. **Broadcast:** Sends the formatted message iteratively to all recipient Chat IDs stored securely in GitHub Secrets.
 
-The script then formats the numbers with Indian currency separators and pushes a notification via the Telegram Bot API.
+---
 
-## 📈 Example Message
-> ✨ **Kerala Gold Rate Today**
+## 📈 Example Notification
+
+> ✨ **Kerala Gold Rate - 15/02/2026**
 > 
 > 🟡 **22K Gold (916)**
 > • 1 gram: ₹14,460
 > • 8 gram: ₹115,680
 > 
-> 🟠 **18K Gold (750)**
-> • 1 gram: ₹11,950
-> • 8 gram: ₹95,600
-> 
 > 📍 Source: AKGSMA
+
+---
+
+## 📖 Setup & Deployment Instructions
+To recreate this bot and deploy it for your own use, follow the detailed step-by-step guide in [SETUP.md](SETUP.md).
 
 ---
 *Created with ❤️ for personal use in Kerala.*
