@@ -5,10 +5,23 @@ import os
 
 def send_telegram(message):
     token = os.getenv('TELEGRAM_TOKEN')
-    chat_id = os.getenv('TELEGRAM_CHAT_ID')
+    # Get all chat IDs from the secret (separated by commas)
+    chat_ids_raw = os.getenv('TELEGRAM_CHAT_IDS', '')
+    
+    # Split by comma and strip any whitespace around the IDs
+    chat_ids = [cid.strip() for cid in chat_ids_raw.split(',') if cid.strip()]
+    
+    if not chat_ids:
+        print("Error: No chat IDs found!")
+        return
+
     url = f"https://api.telegram.org/bot{token}/sendMessage"
-    payload = {"chat_id": chat_id, "text": message, "parse_mode": "Markdown"}
-    requests.post(url, data=payload)
+    
+    # Loop through each chat ID and send the message
+    for chat_id in chat_ids:
+        payload = {"chat_id": chat_id, "text": message, "parse_mode": "Markdown"}
+        response = requests.post(url, data=payload)
+        print(f"Sent to {chat_id}: Status {response.status_code}")
 
 def clean_price(text):
     # Extracts only the digits from a string like "₹ 14460"
