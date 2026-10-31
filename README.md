@@ -31,13 +31,13 @@ An automated Python scraper that fetches daily gold rates (22K and 18K) from the
 
 ## 📈 Example Notification
 
-> ✨ **Kerala Gold Rate - 15/02/2026**
-> 
-> 🟡 **22K Gold (916)**
-> • 1 gram: ₹14,460
-> • 8 gram: ₹115,680
-> 
-> 📍 Source: AKGSMA
+✨ **Kerala Gold Rate - 15/02/2026**
+
+🟡 **22K Gold (916)**
+• 1 gram: ₹14,460
+• 8 gram: ₹115,680
+
+📍 Source: AKGSMA
 
 ---
 
