@@ -1,6 +1,6 @@
 # 🪙 Kerala Daily Gold Rate Bot
 
-An automated Python scraper that fetches daily gold rates (22K and 18K) from the **All Kerala Gold & Silver Merchants Association (AKGSMA)** and broadcasts them directly to Telegram.
+An automated Python scraper that fetches daily 22K gold rate from the **All Kerala Gold & Silver Merchants Association (AKGSMA)** and broadcasts them directly to Telegram.
 
 ---
 
