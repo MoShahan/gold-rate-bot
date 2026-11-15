@@ -3,6 +3,20 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import os
 
+def format_inr(amount):
+    s = str(amount)
+    if len(s) <= 3:
+        return s
+    last_three = s[-3:]
+    remaining = s[:-3]
+    parts = []
+    while len(remaining) > 2:
+        parts.insert(0, remaining[-2:])
+        remaining = remaining[:-2]
+    if remaining:
+        parts.insert(0, remaining)
+    return ','.join(parts) + ',' + last_three
+
 def send_telegram(message):
     token = os.getenv('TELEGRAM_TOKEN')
     # Get all chat IDs from the secret (separated by commas)
@@ -54,7 +68,7 @@ if data:
     
     msg = (
         f"*Gold Rate - {today_date}*\n"
-        f"22K  •  ₹{data['22k_1g']:,}  •  ₹{data['22k_8g']:,}"
+        f"22K  •  ₹{format_inr(data['22k_1g'])}  •  ₹{format_inr(data['22k_8g'])}"
     )
     send_telegram(msg)
 else:
